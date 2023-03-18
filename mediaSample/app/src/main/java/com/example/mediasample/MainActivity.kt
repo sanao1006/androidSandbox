@@ -61,4 +61,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        _player?.let {
+            if(it.isPlaying){
+                it.stop()
+            }
+            it.release()
+        }
+        super.onStop()
+    }
+
 }
