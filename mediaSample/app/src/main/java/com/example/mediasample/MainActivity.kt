@@ -24,6 +24,17 @@ class MainActivity : AppCompatActivity() {
             it.prepareAsync()
         }
     }
+    private inner class PlayerPreparedListener : MediaPlayer.OnPreparedListener {
+        override fun onPrepared(mp: MediaPlayer) {
+            val btPlay = findViewById<Button>(R.id.btPlay)
+            btPlay.isEnabled = true
+            val btBack = findViewById<Button>(R.id.btBack)
+            btBack.isEnabled = true
+            val btForward = findViewById<Button>(R.id.btForward)
+            btForward.isEnabled = true
+        }
+
+    }
 
     private inner class PlayerCompletionListener : MediaPlayer.OnCompletionListener {
         override fun onCompletion(mp: MediaPlayer?) {
@@ -34,17 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private inner class PlayerPreparedListener : MediaPlayer.OnPreparedListener {
-        override fun onPrepared(mp: MediaPlayer?) {
-            val btPlay = findViewById<Button>(R.id.btPlay)
-            btPlay.isEnabled = true
-            val btBack = findViewById<Button>(R.id.btBack)
-            btBack.isEnabled = true
-            val btForward = findViewById<Button>(R.id.btForward)
-            btForward.isEnabled = true
-        }
-
-    }
 
     fun onPlayButtonClick(view: View){
         _player?.let {
