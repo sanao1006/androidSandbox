@@ -19,8 +19,18 @@ class MainActivity : AppCompatActivity() {
         _player?.let {
             it.setDataSource(this@MainActivity, mediaFileUri)
             it.setOnPreparedListener(PlayerPreparedListener())
+            it.setOnCompletionListener(PlayerCompletionListener())
             it.prepareAsync()
         }
+    }
+
+    private inner class PlayerCompletionListener : MediaPlayer.OnCompletionListener {
+        override fun onCompletion(mp: MediaPlayer?) {
+//            再生ボタンを押したときのラベルを「再生」にする
+            val btPlay = findViewById<Button>(R.id.btPlay)
+            btPlay.setText(R.string.bt_play_play)
+        }
+
     }
 
     private inner class PlayerPreparedListener : MediaPlayer.OnPreparedListener {
