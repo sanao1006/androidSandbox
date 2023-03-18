@@ -4,6 +4,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -44,4 +45,20 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun onPlayButtonClick(view: View){
+        _player?.let {
+            val btPlay = findViewById<Button>(R.id.btPlay)
+            if(it.isPlaying){
+//              一時停止
+                it.pause()
+                btPlay.setText(R.string.bt_play_play)
+            }else{
+//              再生開始
+                it.start()
+                btPlay.setText(R.string.bt_play_pause)
+            }
+        }
+    }
+
 }
