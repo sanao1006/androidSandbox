@@ -39,9 +39,9 @@ class SoundManageService : Service() {
         }
     }
 
-    class PlayerCompletionListener : MediaPlayer.OnCompletionListener {
-        override fun onCompletion(mp: MediaPlayer?) {
-            TODO("Not yet implemented")
+    private inner class PlayerCompletionListener : MediaPlayer.OnCompletionListener {
+        override fun onCompletion(mp: MediaPlayer) {
+            stopSelf()
         }
 
     }
