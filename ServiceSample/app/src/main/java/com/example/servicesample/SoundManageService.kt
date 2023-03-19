@@ -47,8 +47,8 @@ class SoundManageService : Service() {
     }
 
     private inner class PlayerPreparedListener : MediaPlayer.OnPreparedListener {
-        override fun onPrepared(mp: MediaPlayer?) {
-            TODO("Not yet implemented")
+        override fun onPrepared(mp: MediaPlayer) {
+            mp.start()
         }
 
     }
