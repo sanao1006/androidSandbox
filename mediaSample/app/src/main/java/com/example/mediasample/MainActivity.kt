@@ -71,4 +71,7 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
+    fun onBackButton(view: View){
+        _player?.seekTo(0)
+    }
 }
