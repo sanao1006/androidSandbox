@@ -7,6 +7,8 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 class SoundManageService : Service() {
     companion object {
@@ -52,6 +54,16 @@ class SoundManageService : Service() {
 
     private inner class PlayerCompletionListener : MediaPlayer.OnCompletionListener {
         override fun onCompletion(mp: MediaPlayer) {
+//          Notification を作成するBuilderクラスの生成
+            val builder = NotificationCompat.Builder(this@SoundManageService, CHANNEL_ID)
+//          通知エリアに表示されるアイコン設定
+            builder.setSmallIcon(android.R.drawable.ic_dialog_info)
+            builder.setContentTitle(getString(R.string.msg_notification_title_finish))
+            builder.setContentText(getString(R.string.msg_notification_text_finish))
+
+            val notification = builder.build()
+            val manager = NotificationManagerCompat.from(this@SoundManageService)
+            manager.notify(100, notification)
             stopSelf()
         }
 
