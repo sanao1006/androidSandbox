@@ -30,6 +30,15 @@ class SoundManageService : Service() {
         return START_NOT_STICKY
     }
 
+    override fun onDestroy() {
+        _player?.let {
+            if(it.isPlaying){
+                it.stop()
+            }
+            it.release()
+        }
+    }
+
     class PlayerCompletionListener : MediaPlayer.OnCompletionListener {
         override fun onCompletion(mp: MediaPlayer?) {
             TODO("Not yet implemented")
