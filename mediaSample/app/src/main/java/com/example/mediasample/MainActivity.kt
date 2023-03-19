@@ -74,4 +74,17 @@ class MainActivity : AppCompatActivity() {
     fun onBackButton(view: View){
         _player?.seekTo(0)
     }
+
+    fun onForwardButton(view: View){
+        _player?.let{
+//          再生中のメディアの長さを取得
+            val duration = it.duration
+            it.seekTo(duration)
+            if(it.isPlaying){
+                val btPlay = findViewById<Button>(R.id.btPlay)
+                btPlay.setText(R.string.bt_play_pause)
+                it.start()
+            }
+        }
+    }
 }
