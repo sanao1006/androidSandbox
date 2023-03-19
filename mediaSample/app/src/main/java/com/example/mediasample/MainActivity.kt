@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.CompoundButton
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
     private var _player: MediaPlayer? = null
@@ -23,7 +25,12 @@ class MainActivity : AppCompatActivity() {
             it.setOnCompletionListener(PlayerCompletionListener())
             it.prepareAsync()
         }
+
+        val loopSwitch = findViewById<SwitchMaterial>(R.id.swLoop)
+        loopSwitch.setOnCheckedChangeListener(LoopSwitchChangedListener())
     }
+
+
     private inner class PlayerPreparedListener : MediaPlayer.OnPreparedListener {
         override fun onPrepared(mp: MediaPlayer) {
             val btPlay = findViewById<Button>(R.id.btPlay)
@@ -38,22 +45,26 @@ class MainActivity : AppCompatActivity() {
 
     private inner class PlayerCompletionListener : MediaPlayer.OnCompletionListener {
         override fun onCompletion(mp: MediaPlayer?) {
+            _player?.let {
+                if (!it.isLooping) {
 //            再生ボタンを押したときのラベルを「再生」にする
-            val btPlay = findViewById<Button>(R.id.btPlay)
-            btPlay.setText(R.string.bt_play_play)
+                    val btPlay = findViewById<Button>(R.id.btPlay)
+                    btPlay.setText(R.string.bt_play_play)
+                }
+            }
         }
 
     }
 
 
-    fun onPlayButtonClick(view: View){
+    fun onPlayButtonClick(view: View) {
         _player?.let {
             val btPlay = findViewById<Button>(R.id.btPlay)
-            if(it.isPlaying){
+            if (it.isPlaying) {
 //              一時停止
                 it.pause()
                 btPlay.setText(R.string.bt_play_play)
-            }else{
+            } else {
 //              再生開始
                 it.start()
                 btPlay.setText(R.string.bt_play_pause)
@@ -63,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         _player?.let {
-            if(it.isPlaying){
+            if (it.isPlaying) {
                 it.stop()
             }
             it.release()
@@ -71,20 +82,28 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    fun onBackButton(view: View){
+    fun onBackButton(view: View) {
         _player?.seekTo(0)
     }
 
-    fun onForwardButton(view: View){
-        _player?.let{
+    fun onForwardButton(view: View) {
+        _player?.let {
 //          再生中のメディアの長さを取得
             val duration = it.duration
             it.seekTo(duration)
-            if(it.isPlaying){
+            if (it.isPlaying) {
                 val btPlay = findViewById<Button>(R.id.btPlay)
                 btPlay.setText(R.string.bt_play_pause)
                 it.start()
             }
         }
     }
+
+    private inner class LoopSwitchChangedListener : CompoundButton.OnCheckedChangeListener {
+        override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
+            _player?.isLooping = isChecked
+        }
+
+    }
+
 }
