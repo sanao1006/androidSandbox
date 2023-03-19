@@ -17,12 +17,12 @@ class SoundManageService : Service() {
         _player = MediaPlayer()
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val mediaFileUrlStr = "android.resource://${packageName}/${R.raw.sound_environment}"
         val mediaFileUrl = Uri.parse(mediaFileUrlStr)
         _player?.let {
 //          メディアプレーヤーに音声ファイルを指定
-            it.setDataSource(this@SoundManageService,mediaFileUrl)
+            it.setDataSource(this@SoundManageService, mediaFileUrl)
             it.setOnPreparedListener(PlayerPreparedListener())
             it.setOnCompletionListener(PlayerCompletionListener())
             it.prepareAsync()
@@ -32,7 +32,7 @@ class SoundManageService : Service() {
 
     override fun onDestroy() {
         _player?.let {
-            if(it.isPlaying){
+            if (it.isPlaying) {
                 it.stop()
             }
             it.release()
