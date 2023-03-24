@@ -91,8 +91,44 @@ fun AlignYourBodyElement(
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
-fun AlignYourBodyElementPreview(){
+fun AlignYourBodyElementPreview() {
 
-    AlignYourBodyElement(drawable = R.drawable.ab1_inversions, text = R.string.ab1_inversions, modifier = Modifier.padding(16.dp))
+    AlignYourBodyElement(
+        drawable = R.drawable.ab1_inversions,
+        text = R.string.ab1_inversions,
+        modifier = Modifier.padding(16.dp)
+    )
+
+}
+
+
+@Composable
+fun FavoriteCollectionCard(
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(192.dp)
+        ) {
+            Image(
+                painter = painterResource(id = drawable),
+                contentDescription = null,
+                modifier = Modifier.size(56.dp)
+
+            )
+            Text(
+                text = stringResource(id = text),
+                modifier =Modifier.padding(horizontal = 16.dp)
+            )
+
+        }
+
+    }
 
 }
