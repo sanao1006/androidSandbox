@@ -25,8 +25,8 @@
             <fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="com.example.android.navigation.TitleFragment"
-                android:id="@+id/titleFragment"
+                android:name="com.example.android.navigation.NavHostFragment"
+                android:id="@+id/myNavHostFragment"
                 />
         </LinearLayout>
 
